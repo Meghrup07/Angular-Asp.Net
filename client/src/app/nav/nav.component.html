@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" routerLinkActive="active" routerLink="/">Dating App</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ng-container *ngIf="accountServices.currentUser()">
+                <li class="nav-item">
+                    <a routerLink="/members" routerLinkActive="active" class="nav-link">Matches</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/lists" routerLinkActive="active" class="nav-link">Lists</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/messages" routerLinkActive="active" class="nav-link">Messages</a>
+                </li>
+            </ng-container>
+            <li class="nav-item">
+                <a routerLink="/errors" routerLinkActive="active" class="nav-link">errors</a>
+            </li>
+        </ul>
+
+        <div class="dropdown" *ngIf="accountServices.currentUser()" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle>
+                Welcome {{accountServices.currentUser()?.username | titlecase}}
+            </a>
+            <div class="dropdown-menu" *dropdownMenu>
+                <a class="dropdown-item">Edit profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+        </div>
+
+        <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex" autocomplete="off"
+            *ngIf="!accountServices.currentUser()">
+            <input class="form-control me-2" type="text" placeholder="Username" name="username"
+                [(ngModel)]="model.username">
+            <input class="form-control me-2" type="password" placeholder="Password" name="password"
+                [(ngModel)]="model.password">
+            <button class="btn btn-success" type="submit">Login</button>
+        </form>
+    </div>
+</nav>
