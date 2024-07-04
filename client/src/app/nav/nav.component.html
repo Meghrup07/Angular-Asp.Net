@@ -2,7 +2,8 @@
     <div class="container">
         <a class="navbar-brand" routerLinkActive="active" routerLink="/">Dating App</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <ng-container *ngIf="accountServices.currentUser()">
+            @if(accountServices.currentUser()){
+            <ng-container>
                 <li class="nav-item">
                     <a routerLink="/members" routerLinkActive="active" class="nav-link">Matches</a>
                 </li>
@@ -13,12 +14,14 @@
                     <a routerLink="/messages" routerLinkActive="active" class="nav-link">Messages</a>
                 </li>
             </ng-container>
+            }
             <li class="nav-item">
                 <a routerLink="/errors" routerLinkActive="active" class="nav-link">errors</a>
             </li>
         </ul>
 
-        <div class="dropdown" *ngIf="accountServices.currentUser()" dropdown>
+        @if(accountServices.currentUser()){
+        <div class="dropdown" dropdown>
             <a class="dropdown-toggle text-light" dropdownToggle>
                 Welcome {{accountServices.currentUser()?.username | titlecase}}
             </a>
@@ -28,14 +31,16 @@
                 <a class="dropdown-item" (click)="logout()">Logout</a>
             </div>
         </div>
+        }
 
-        <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex" autocomplete="off"
-            *ngIf="!accountServices.currentUser()">
+        @if(!accountServices.currentUser()){
+        <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex" autocomplete="off">
             <input class="form-control me-2" type="text" placeholder="Username" name="username"
                 [(ngModel)]="model.username">
             <input class="form-control me-2" type="password" placeholder="Password" name="password"
                 [(ngModel)]="model.password">
             <button class="btn btn-success" type="submit">Login</button>
         </form>
+        }
     </div>
 </nav>
