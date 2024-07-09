@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map } from 'rxjs';
 import { User } from '../_models/user';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { User } from '../_models/user';
 export class AccountService {
 
   private http = inject(HttpClient);
-  baseUrl = "https://localhost:5000/api/";
+  baseUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
 
   constructor() { }
