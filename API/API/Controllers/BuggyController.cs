@@ -6,22 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-	public class BuggyController: BaseApiController
-	{
+    public class BuggyController(DataContext _context) : BaseApiController
+    {
 
-		private readonly DataContext _context;
-
-		public BuggyController(DataContext context)
-		{
-			_context = context;
-		}
-
-		[Authorize]
-		[HttpGet("auth")]
-		public ActionResult<string> GetSecret()
-		{
-			return "secret text";
-		}
+        [Authorize]
+        [HttpGet("auth")]
+        public ActionResult<string> GetSecret()
+        {
+            return "secret text";
+        }
 
         [HttpGet("not-found")]
         public ActionResult<AppUser> GetNotFound()
