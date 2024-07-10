@@ -9,8 +9,10 @@ namespace API.Entities
         public int Id { get; set; }
         [Required]
         public required string UserName { get; set; }
-        public byte[] passwordHash { get; set; } = [];
-        public byte[] passwordSalt { get; set; } = [];
+        [Required]
+        public byte[] passwordHash { get; set; }
+        [Required]
+        public byte[] passwordSalt { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public string? KnownAs { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
