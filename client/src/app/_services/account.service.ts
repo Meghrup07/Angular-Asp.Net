@@ -18,6 +18,7 @@ export class AccountService {
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((user) => {
+        console.log("🚀 ~ AccountService ~ map ~ user:", user)
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUser.set(user);
