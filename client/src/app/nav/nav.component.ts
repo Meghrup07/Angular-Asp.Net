@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
+  userImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
   private router = inject(Router)
   accountServices = inject(AccountService);
   private toastr = inject(ToastrService)
