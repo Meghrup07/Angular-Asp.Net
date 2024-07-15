@@ -1,16 +1,24 @@
-<form #loginForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
-    <div class="mb-3 form-floating">
-        <input class="form-control me-2" type="text" placeholder="Username" name="username"
-            [(ngModel)]="model.username">
-        <label>Username</label>
+    <div class="mb-3">
+        <label style="margin-right: 10px;">I am a:</label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="male" formControlName="gender"> Male
+            <input type="radio" class="form-check-input" value="Female" formControlName="gender"> Female
+        </label>
     </div>
-    <div class="mb-3 form-floating">
-        <input class="form-control me-2" type="password" placeholder="Password" name="password"
-            [(ngModel)]="model.password">
-        <label>Password</label>
-    </div>
+    <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known as'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['dateOfBirth'])"
+        [label]="'Date of Birth'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['password'])" [type]="'password'"
+        [label]="'Password'"></app-text-input>
+    <app-text-input [type]="'password'" [formControl]="$any(registerForm.controls['confirmPassword'])"
+        [label]="'Confirm Password'"></app-text-input>
+
     <div class="form-group text-center">
         <button class="btn btn-success me-2" type="submit">Register</button>
         <button class="btn btn-default me-2" (click)="cancel()" type="button">Cancel</button>
