@@ -8,22 +8,23 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Services
 {
-	public class TokenService: ITokenService
+	public class TokenService : ITokenService
 	{
 
 		private readonly SymmetricSecurityKey _key;
 
-        public TokenService(IConfiguration config)
-        {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
-        }
+		public TokenService(IConfiguration config)
+		{
+			_key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+		}
 
-        public string CreateToken(AppUser user)
+		public string CreateToken(AppUser user)
 		{
 			var claims = new List<Claim>
 			{
-				new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
-		    };
+				new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+				new(ClaimTypes.Name, user.UserName)
+			};
 
 			var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
 			var tokenDescriptor = new SecurityTokenDescriptor
@@ -39,7 +40,7 @@ namespace API.Services
 
 			return tokenHandler.WriteToken(token);
 		}
-		
+
 	}
 }
 
